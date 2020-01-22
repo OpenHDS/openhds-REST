@@ -1,1 +1,21 @@
+server:
+  port: 8080
+
+
 security:
+  jwt:
+    secret: openhdsDevClient
+    expirationTime: 3000000
+    headerString: Authorization
+    tokenPrefix: Bearer
+
+spring:
+  datasource:
+    password: data
+    username: data
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/openhds?createDatabaseIfNotExist=false
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: false

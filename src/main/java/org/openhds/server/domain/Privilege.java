@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
-import org.openhds.annotations.Description;
+import org.openhds.server.annotations.Description;
 
 /**
  * @author Dave Roberge

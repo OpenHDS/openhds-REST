@@ -8,8 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import org.openhds.annotations.Description;
-import org.openhds.constraint.Searchable;
+import org.openhds.server.annotations.Description;
+import org.openhds.server.constraints.Searchable;
 
 /**
  * @author Dave Roberge

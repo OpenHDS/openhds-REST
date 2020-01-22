@@ -1,6 +1,6 @@
 package org.openhds.server.domain;
 
-import org.openhds.annotations.Authorized;
+import org.openhds.server.annotations.Authorized;
 
 /**
  * These constants correspond to the privileges that are created and defined within the import.sql script

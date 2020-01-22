@@ -19,9 +19,10 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NamedQuery;
-import org.openhds.annotations.Description;
-import org.openhds.constraint.CheckFieldNotBlank;
-import org.openhds.constraint.Searchable;
+import org.openhds.server.annotations.Description;
+import org.openhds.server.constraints.CheckFieldNotBlank;
+import org.openhds.server.constraints.Searchable;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Description(description="A User in the system. Users contain a group of Roles which " +
 		"define the actions they can take within OpenHDS. It contains descriptive " +
@@ -30,7 +31,7 @@ import org.openhds.constraint.Searchable;
 @Entity
 @Table(name = "user")
 @NamedQuery(name = "User.findByUsername", query = "from User u where u.username = ?1")
-public class User implements Serializable {
+public class User implements Serializable{
 
     static final long serialVersionUID = 23L;
     
