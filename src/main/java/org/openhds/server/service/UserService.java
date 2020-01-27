@@ -23,13 +23,14 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	UserRepository repository;
     
-	private final String SPRING_ROLE = "ROLE_CLIENT";
+	private final String SPRING_ROLE = "ADMIN";
 
     private Collection<GrantedAuthority> convertAuthorities(Set<Role> roles) {
 		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
 		authorities.add(new SimpleGrantedAuthority(SPRING_ROLE));
 		for(Role role : roles) {
+			System.out.println(role.getName());
 			authorities.add(new SimpleGrantedAuthority(role.getName()));
 		}
 		
@@ -41,4 +42,13 @@ public class UserService implements UserDetailsService {
         User user = repository.findByUsername(username);
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), convertAuthorities(user.getRoles()));
     }
+
+    public Collection<GrantedAuthority> loadUserAuthorities(String username) throws UsernameNotFoundException{
+    	User user = this.repository.findByUsername(username);
+		return this.convertAuthorities(user.getRoles());
+	}
+
+	public Collection<GrantedAuthority> convertUserRoles(Set<Role> roles) throws UsernameNotFoundException{
+		return this.convertAuthorities(roles);
+	}
 }
