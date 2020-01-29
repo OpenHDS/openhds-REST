@@ -1,4 +1,4 @@
-package org.openhds.server.service;
+package org.openhds.server.service.impl;
 
 import org.openhds.server.dao.UserRepository;
 import org.openhds.server.domain.Privilege;
@@ -18,21 +18,26 @@ import java.util.Collection;
 import java.util.Set;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserServiceImpl implements UserDetailsService {
 
 	@Autowired
 	UserRepository repository;
     
-	private final String SPRING_ROLE = "ADMIN";
 
     private Collection<GrantedAuthority> convertAuthorities(Set<Role> roles) {
 		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-		authorities.add(new SimpleGrantedAuthority(SPRING_ROLE));
 		for(Role role : roles) {
-			System.out.println(role.getName());
-			authorities.add(new SimpleGrantedAuthority(role.getName()));
+			authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+
+			if(role.getPrivileges().size() != 0) {
+				for (Privilege priv : role.getPrivileges()) {
+					authorities.add(new SimpleGrantedAuthority(priv.getPrivilege()));
+				}
+			}
 		}
+
+		System.out.println("Authorities: "  + authorities);
 		
 		return authorities;
 	}

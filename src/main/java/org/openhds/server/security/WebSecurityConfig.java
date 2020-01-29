@@ -1,6 +1,10 @@
+/**
+ * @author Nick Littlefield
+ */
+
 package org.openhds.server.security;
 
-import org.openhds.server.service.UserService;
+import org.openhds.server.service.impl.UserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,10 +20,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private UserService userDetailsService;
+    private UserServiceImpl userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public WebSecurityConfig(UserService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder){
+    public WebSecurityConfig(UserServiceImpl userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder){
         this.userDetailsService = userDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }

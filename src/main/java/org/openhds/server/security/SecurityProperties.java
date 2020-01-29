@@ -1,3 +1,7 @@
+/**
+ * @author Nick Littlefield
+ */
+
 package org.openhds.server.security;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;

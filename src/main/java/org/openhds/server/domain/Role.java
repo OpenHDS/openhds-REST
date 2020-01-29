@@ -81,8 +81,6 @@ public class Role extends AuditableEntity implements Serializable {
         return hash;
     }
 
-
-
     @Override
     public String toString() {
         return name;

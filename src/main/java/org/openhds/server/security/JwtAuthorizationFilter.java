@@ -1,13 +1,14 @@
+/**
+ * @author Nick Littlefield
+ */
+
 package org.openhds.server.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import org.openhds.server.domain.Role;
-import org.openhds.server.service.UserService;
+import org.openhds.server.service.impl.UserServiceImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -16,19 +17,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Set;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
     private SecurityProperties properties;
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager,
-                                  final SecurityProperties properties, final UserService userService){
+                                  final SecurityProperties properties, final UserServiceImpl userServiceImpl){
         super(authenticationManager);
         this.properties = properties;
-        this.userService = userService;
+        this.userServiceImpl = userServiceImpl;
     }
 
     @Override
@@ -57,7 +55,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
                     .getSubject();
 
             if(user != null){
-                return new UsernamePasswordAuthenticationToken(user, null, this.userService.loadUserAuthorities(user));
+                return new UsernamePasswordAuthenticationToken(user, null, this.userServiceImpl.loadUserAuthorities(user));
             }
 
             return null;

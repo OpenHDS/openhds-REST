@@ -1,3 +1,7 @@
+/**
+ * @author Nick Littlefield
+ */
+
 package org.openhds.server.controllers;
 
 import org.openhds.server.dao.UserRepository;
@@ -6,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +30,7 @@ public class UserController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(method = RequestMethod.GET, value = "/{username}")
     public ResponseEntity<? extends Serializable> getByUsername(@PathVariable String username) {
         return  new ResponseEntity<>(applicationUserRepository.findByUsername(username), HttpStatus.FOUND);
